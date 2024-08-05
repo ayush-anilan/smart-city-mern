@@ -26,11 +26,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: "https://smart-city-mern-backend.vercel.app",
-  })
-);
+app.use(cors({ origin: true, credentials: true }));
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000!");
@@ -44,6 +40,10 @@ app.use(express.static(path.join(__dirname, "/client/dist")));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
+
+app.get("/test", (req, res) => {
+  res.send("Hello world");
 });
 
 app.use((err, req, res, next) => {
